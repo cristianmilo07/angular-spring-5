@@ -3,11 +3,13 @@ package com.cvillada.springboot.backend.apirest.models.services;
 import com.cvillada.springboot.backend.apirest.models.dao.IClientesDao;
 import com.cvillada.springboot.backend.apirest.models.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class ClienteServiceImpl implements  IClientesService{
+@Service
+public class ClienteServiceImpl implements IClientesService{
 
     @Autowired
     private IClientesDao clientesDao;
