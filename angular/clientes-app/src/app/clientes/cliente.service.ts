@@ -32,11 +32,17 @@ export class ClienteService {
   }
 
   create(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.urlEndPoint, cliente, {headers: this.httpHeaders}).pipe(
+    return this.http.post(this.urlEndPoint, cliente, {headers: this.httpHeaders}).pipe(
+      map( (response: any) => response.cliente as Cliente),
       catchError(e => {
-        console.error(e.error.mensaje);
-        swal.fire('Error al crear al cliente ', e.error.mensaje, "error");
+
+      if (e.status == 400 ) {
         return throwError(e);
+      }
+
+      console.error(e.error.mensaje);
+      swal.fire(e.error.mensaje, e.error.mensaje, "error");
+      return throwError(e);
       })
     );
   }
@@ -46,17 +52,22 @@ export class ClienteService {
       catchError(e => {
         this.router.navigate(['/clientes']);
         console.error(e.error.mensaje);
-        swal.fire('Error al editar ', e.error.mensaje, 'error');
+        swal.fire(e.error.mensaje, e.error.mensaje, 'error');
         return throwError(e);
       })
     );
   }
 
-  update(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
+  update(cliente: Cliente): Observable<any> {
+    return this.http.put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+
+        if (e.status == 400 ) {
+          return throwError(e);
+        }
+
         console.error(e.error.mensaje);
-        swal.fire('Error al editar al cliente ', e.error.mensaje, "error");
+        swal.fire(e.error.mensaje, e.error.mensaje, "error");
         return throwError(e);
       })
     );
@@ -66,7 +77,7 @@ export class ClienteService {
     return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
       catchError(e => {
         console.error(e.error.mensaje);
-        swal.fire('Error al eliminar al cliente ', e.error.mensaje, "error");
+        swal.fire(e.error.mensaje, e.error.mensaje, "error");
         return throwError(e);
       })
     );
