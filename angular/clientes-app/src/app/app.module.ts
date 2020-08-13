@@ -9,11 +9,13 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './clientes/form.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path: '', redirectTo: '/clientes', pathMatch: 'full' },
   {path: 'clientes', component: ClientesComponent},
+  {path: 'clientes/page/:page', component: ClientesComponent},
   {path: 'clientes/form', component: FormComponent},
   {path: 'clientes/form/:id', component: FormComponent},
 ];
@@ -24,7 +26,8 @@ const routes: Routes = [
     ClientesComponent,
     HeaderComponent,
     FooterComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
