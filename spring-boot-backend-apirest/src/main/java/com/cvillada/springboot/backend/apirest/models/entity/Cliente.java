@@ -34,6 +34,9 @@ public class Cliente implements Serializable {
     @Column(name="create_at")
     @Temporal(TemporalType.DATE)
     private Date createAt;
+
+    @NotEmpty
+    private String foto;
     
     public Long getId() {
         return id;
@@ -77,5 +80,11 @@ public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public String getFoto() {
+        return foto;
+    }
 
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
 }
